@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const editTaskItem = e => {
     const inputFieldValue = document.getElementById('new-task-description')
       .value;
-    e.target.parentNode.innerText = inputFieldValue;
+    e.target.parentNode.querySelector('span').innerText = inputFieldValue;
   };
 
   const removeTaskItem = e => {
@@ -26,9 +26,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // if input field contains no text, doesn't allow creating an empty task.
     if (inputFieldValue) {
       const li = document.createElement('li');
+
+      // creating a span to hold the task instead of the li itself.
+      const span = document.createElement('span');
       const deleteButton = document.createElement('button');
       const editButton = document.createElement('button');
-      li.innerText = `${inputFieldValue}`;
+      span.innerText = `${inputFieldValue}`;
 
       // Setting background colors depending on priority.
       switch (inputPriority) {
@@ -58,6 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
       deleteButton.addEventListener('click', removeTaskItem);
       editButton.addEventListener('click', editTaskItem);
 
+      li.appendChild(span);
       li.appendChild(deleteButton);
       li.appendChild(editButton);
       taskList.appendChild(li);
